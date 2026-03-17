@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>张琪琪 - 个人作品集（产品设计+视频剪辑）</title>
+<style>
+/* 全局样式：保留色彩体系+渐变背景（加深）+波点条纹装饰 */
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"微软雅黑",Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    background: linear-gradient(145deg, #e8f0ff 0%, #dce8ff 30%, #c9d8ff 100%);
+    color:#2d3748;
+    line-height:1.7;
+    min-height:100vh;
+    background-image: 
+        radial-gradient(#b3c7ff 2px, transparent 2px),
+        radial-gradient(#b3c7ff 2px, transparent 2px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+}
+.container{max-width:1200px;margin:30px auto;padding:0 20px;position:relative;}
+
+/* 条纹装饰元素 */
+.stripes-decor{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:10px;
+    background: repeating-linear-gradient(
+        45deg,
+        #1890ff,
+        #1890ff 10px,
+        #fa8c16 10px,
+        #fa8c16 20px
+    );
+    opacity:0.3;
+    border-radius:5px 5px 0 0;
+}
+
+/* 头部卡片：撞色渐变+彩色装饰（加深渐变） */
+.header-card{
+    background: linear-gradient(120deg, #c1e0ff 0%, #e8d8ff 50%, #c1e0ff 100%);
+    border-radius:24px;
+    box-shadow:0 6px 20px rgba(187, 173, 255, 0.3);
+    padding:40px 25px 30px;
+    margin-bottom:35px;
+    text-align:center;
+    position:relative;
+    border:1px solid #d0e0ff;
+    overflow:hidden;
+}
+/* 头部卡片内部条纹装饰 */
+.header-card .inner-stripes{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:8px;
+    background: repeating-linear-gradient(
+        -45deg,
+        #52c41a,
+        #52c41a 8px,
+        transparent 8px,
+        transparent 16px
+    );
+    opacity:0.2;
+}
+.header-card::before{
+    content:'';
+    position:absolute;
+    top:-20px;right:-20px;
+    width:80px;height:80px;
+    background:rgba(250, 140, 22, 0.2);
+    border-radius:50%;
+    z-index:0;
+}
+.header-card::after{
+    content:'';
+    position:absolute;
+    bottom:-15px;left:-15px;
+    width:60px;height:60px;
+    background:rgba(245, 34, 45, 0.15);
+    border-radius:50%;
+    z-index:0;
+}
+
+/* 卡通头像 */
+.avatar{
+    position:absolute;
+    top:25px;
+    left:25px;
+    width:110px;height:110px;
+    border-radius:50%;
+    border:5px solid transparent;
+    padding:4px;
+    background: linear-gradient(#fff, #fff) padding-box,
+                linear-gradient(135deg, #1890ff, #fa8c16, #52c41a) border-box;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.6s ease-in-out;
+    object-fit:cover;
+    object-position: center;
+    z-index:1;
+    cursor:pointer;
+}
+.avatar:hover{
+    transform: rotate(15deg) scale(1.1);
+    box-shadow:0 8px 25px rgba(24, 144, 255, 0.25);
+    background: linear-gradient(#fff, #fff) padding-box,
+                linear-gradient(135deg, #52c41a, #fa8c16, #1890ff) border-box;
+}
+
+/* 头部文字层 */
+.header-text{
+    position:relative;
+    z-index:1;
+    padding-top:10px;
+}
+.header-card h1{
+    font-size:28px;
+    color:#2d3748;
+    margin-bottom:12px;
+    font-weight:600;
+    letter-spacing:1.5px;
+    background: linear-gradient(120deg, #2d3748 0%, #4a5568 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.header-card .intro-text{
+    font-size:15px;
+    color:#4a5568;
+    margin:0 auto 15px;
+    max-width:800px;
+    line-height:1.8;
+    text-align:left;
+    padding:0 20px;
+}
+.header-card .browser-tip{
+    font-size:14px;
+    color:#f5222d;
+    font-weight:500;
+    margin:0 auto;
+    max-width:800px;
+    padding:0 20px;
+}
+
+/* 板块标题：产品设计/视频剪辑 统一标题样式 */
+.portfolio-title{
+    font-size:22px;
+    font-weight:600;
+    color:#2d3748;
+    margin:40px 0 20px;
+    padding-left:10px;
+    border-left:4px solid #1890ff;
+    display:inline-block;
+}
+/* PRD下载按钮样式 */
+.prd-download{
+    display:inline-block;
+    background: linear-gradient(120deg, #1890ff 0%, #096dd9 100%);
+    color:#fff;
+    padding:10px 20px;
+    border-radius:30px;
+    font-size:14px;
+    font-weight:600;
+    text-decoration:none;
+    margin:0 0 20px 10px;
+    box-shadow:0 4px 12px rgba(24,144,255,0.2);
+    transition:all 0.3s ease;
+    cursor:pointer;
+}
+.prd-download:hover{
+    transform:translateY(-3px);
+    box-shadow:0 6px 16px rgba(24,144,255,0.3);
+    background: linear-gradient(120deg, #096dd9 0%, #1890ff 100%);
+}
+.prd-download i{
+    margin-right:8px;
+}
+/* 产品设计项目卡片：与视频卡片风格统一，纯白底色 */
+.product-card{
+    background: #ffffff;
+    border-radius:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.06);
+    overflow:hidden;
+    transition:all 0.4s ease;
+    border:2px solid #f0f5ff;
+    margin-bottom:35px;
+}
+.product-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 12px 30px rgba(153, 178, 255, 0.15);
+    border-color:#1890ff;
+}
+/* 产品项目介绍 */
+.product-intro{
+    padding:25px 25px 15px;
+}
+.product-tag{
+    display:inline-block;
+    padding:6px 15px;
+    border-radius:25px;
+    font-size:12px;
+    font-weight:600;
+    margin-bottom:10px;
+    background:linear-gradient(120deg, #d1e9ff 0%, #b3d8ff 100%);
+    color:#096dd9;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05),
+                0 0 0 1px rgba(24, 144, 255, 0.1) inset;
+}
+.product-name{
+    font-size:18px;
+    font-weight:600;
+    color:#2d3748;
+    margin-bottom:10px;
+    letter-spacing:0.5px;
+}
+.product-desc{
+    font-size:14px;
+    color:#718096;
+    line-height:1.7;
+    margin-bottom:15px;
+}
+/* 产品图片展示网格：需求图+功能结构图+高低保真图 4列自适应 */
+.product-img-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:20px;
+    padding:0 25px 25px;
+}
+/* 产品图片容器：保持比例，加边框 + 点击光标 */
+.product-img-wrap{
+    width:100%;
+    aspect-ratio:4/3;
+    overflow:hidden;
+    border-radius:12px;
+    border:1px solid #f0f5ff;
+    position:relative;
+    cursor:zoom-in; /* 放大光标提示 */
+}
+.product-img-wrap img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:all 0.3s ease;
+}
+.product-img-wrap:hover img{
+    transform:scale(1.05);
+}
+/* 图片加载失败提示 */
+.product-img-fallback{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#f5f7fa;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:2;
+    color:#718096;
+    font-size:13px;
+    text-align:center;
+    padding:10px;
+    flex-direction:column;
+    cursor:default;
+}
+.product-img-fallback i{
+    font-size:20px;
+    margin-bottom:5px;
+}
+/* 图片说明文字 */
+.product-img-desc{
+    text-align:center;
+    font-size:13px;
+    color:#4a5568;
+    margin-top:8px;
+    font-weight:500;
+}
+
+/* 图片预览弹窗样式 */
+.img-preview-modal{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    background:rgba(0,0,0,0.85);
+    z-index:9999;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+.img-preview-content{
+    max-width:90%;
+    max-height:90%;
+    border-radius:12px;
+    box-shadow:0 0 30px rgba(255,255,255,0.2);
+}
+.img-preview-close{
+    position:absolute;
+    top:20px;
+    right:30px;
+    color:#fff;
+    font-size:30px;
+    cursor:pointer;
+    transition:all 0.2s ease;
+}
+.img-preview-close:hover{
+    color:#ff4d4f;
+    transform:scale(1.1);
+}
+
+/* 视频网格 */
+.video-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(450px, 1fr));
+    gap:28px;
+    margin-bottom:20px;
+    background-image: linear-gradient(90deg, rgba(24,144,255,0.05) 50%, transparent 50%);
+    background-size: 20px 100%;
+    padding:10px;
+    border-radius:10px;
+}
+
+/* 分类标签 */
+.tag{
+    display:inline-block;
+    padding:6px 15px;
+    border-radius:25px;
+    font-size:12px;
+    font-weight:600;
+    margin-bottom:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05),
+                0 0 0 1px rgba(24, 144, 255, 0.1) inset;
+}
+.tag-course{background:linear-gradient(120deg, #e6f7ff 0%, #d1eaff 100%);color:#1890ff;}
+.tag-work1{background:linear-gradient(120deg, #fff7e6 0%, #ffedd5 100%);color:#fa8c16;}
+.tag-work2{background:linear-gradient(120deg, #fef0f0 0%, #ffd9d9 100%);color:#f5222d;}
+.tag-daily{background:linear-gradient(120deg, #f0f9eb 0%, #e6f7e0 100%);color:#52c41a;}
+
+/* 视频卡片：纯白天底色，文字更清晰 */
+.video-item{
+    background: #ffffff;
+    border-radius:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.06);
+    overflow:hidden;
+    transition:all 0.4s ease;
+    border:2px solid #f0f5ff;
+}
+.video-item:hover{
+    transform:translateY(-8px);
+    box-shadow:0 12px 30px rgba(153, 178, 255, 0.15);
+}
+.video-item:nth-child(1):hover{border-color:#1890ff;}
+.video-item:nth-child(2):hover{border-color:#fa8c16;}
+.video-item:nth-child(3):hover{border-color:#f5222d;}
+.video-item:nth-child(4):hover{border-color:#52c41a;}
+
+/* 视频容器 */
+.video-wrap{
+    width:100%;
+    aspect-ratio:16/9;
+    overflow:hidden;
+    position:relative;
+}
+.video-wrap video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    position:relative;
+    z-index:0;
+}
+.video-wrap .video-fallback{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#f5f7fa;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:2;
+    color:#718096;
+    font-size:14px;
+    text-align:center;
+    padding:20px;
+}
+
+/* 视频信息 */
+.video-info{
+    padding:20px 22px;
+    background:#fff;
+}
+.video-title{
+    font-size:16px;
+    font-weight:600;
+    color:#2d3748;
+    margin-bottom:8px;
+    letter-spacing:0.5px;
+}
+.video-desc{
+    font-size:13px;
+    color:#718096;
+    line-height:1.7;
+}
+
+/* 页脚 */
+footer{
+    text-align:center;
+    padding:40px 0;
+    color:#94a3b8;
+    font-size:13px;
+    margin-top:30px;
+    position:relative;
+    background-image: repeating-linear-gradient(
+        90deg,
+        rgba(82,196,26,0.05),
+        rgba(82,196,26,0.05) 10px,
+        transparent 10px,
+        transparent 20px
+    );
+    border-radius:10px;
+}
+footer::before{
+    content:'';
+    position:absolute;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    width:80px;
+    height:2px;
+    background:linear-gradient(120deg, #096dd9 0%, #389e0d 100%);
+    border-radius:2px;
+}
+footer p{
+    background: linear-gradient(120deg, #64748b 0%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top:10px;
+}
+
+/* 响应式适配 */
+@media (max-width: 950px) {
+    .video-grid{grid-template-columns:1fr;gap:25px;}
+    .product-img-grid{grid-template-columns:repeat(2, 1fr);gap:15px;}
+    .header-card{padding:35px 20px 25px;margin-bottom:25px;}
+    .header-card h1{font-size:24px;}
+    .avatar{width:90px;height:90px;top:20px;left:20px;border-width:4px;padding:3px;}
+    .portfolio-title{font-size:20px;}
+    .prd-download{padding:8px 16px;font-size:13px;}
+    .img-preview-close{font-size:25px;right:20px;}
+}
+@media (max-width: 480px) {
+    .container{padding:0 15px;}
+    .video-info{padding:18px 20px;}
+    .product-intro{padding:20px 20px 10px;}
+    .product-img-grid{grid-template-columns:1fr;gap:15px;padding:0 20px 20px;}
+    .video-title{font-size:15px;}
+    .avatar{width:80px;height:80px;top:15px;left:15px;padding:2px;}
+    .header-card{padding:35px 20px 25px;}
+    .header-card h1{padding-top:15px;}
+    .header-card .intro-text{text-align:center;}
+    .portfolio-title{font-size:18px;}
+    .product-name{font-size:16px;}
+    .prd-download{width:calc(100% - 20px);margin:0 10px 20px;text-align:center;}
+    .img-preview-close{font-size:20px;right:15px;top:15px;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="stripes-decor"></div>
+    
+    <!-- 头部：更新介绍文案 -->
+    <div class="header-card">
+        <img src="avatar.png" alt="张琪琪卡通形象" class="avatar" onerror="this.style.display='none'">
+        <div class="header-text">
+            <h1>张琪琪的个人作品集</h1>
+            <div class="intro-text">
+                该网站由本人借助AI独立设计搭建，始终保持学习与探索的心态～<br><br>
+                网站将展示本人<strong>产品设计的项目作品</strong>，以及<strong>视频剪辑作品</strong>；所有视频均由本人使用剪映独立完成，部分素材来自AI推荐的免费视频素材网站，涵盖课程作业、学生工作宣传、日常生活创作，记录每一次学习与尝试！
+            </div>
+            <div class="browser-tip">
+                如遇浏览器问题无法快速加载图片/视频，可在简历附件中查看相关作品<br>
+                点击产品设计图片可查看全图预览
+            </div>
+        </div>
+        <div class="inner-stripes"></div>
+    </div>
+
+    <!-- 产品设计项目板块：含PRD下载按钮+新增功能结构图+点击查看全图 -->
+    <h2 class="portfolio-title">产品设计项目</h2>
+    <!-- PRD文档下载按钮 -->
+    <a href="金勺子产品设计PRD.pdf" class="prd-download" download>
+        <i>📄</i>下载项目PRD完整文档
+    </a>
+    <div class="product-card">
+        <div class="product-intro">
+            <span class="product-tag">课程实践项目 | 团队负责人</span>
+            <div class="product-name">“金勺子”食谱烹饪学习APP产品设计</div>
+            <div class="product-desc">该项目为APP产品设计的课程实践项目，团队成员共4人，本人在项目团队中担任负责人，完成了产品从需求到设计的全流程转化，聚焦年轻新手烹饪群体核心痛点，打造差异化的新手友好型低成本做菜教学工具。</div>
+        </div>
+        <div class="product-img-grid">
+            <!-- 需求调查成果图 -->
+            <div>
+                <div class="product-img-wrap" onclick="openImgPreview('product_demand.jpg', '需求调查成果图')">
+                    <img src="product_demand.jpg" alt="金勺子APP需求调查成果图" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'">
+                    <div class="product-img-fallback" style="display:none;">
+                        <i>📊</i>
+                        需求调查成果图<br>加载失败
+                    </div>
+                </div>
+                <div class="product-img-desc">需求调查成果图（点击查看全图）</div>
+            </div>
+            <!-- 产品功能结构图 -->
+            <div>
+                <div class="product-img-wrap" onclick="openImgPreview('product_structure.jpg', '产品功能结构图')">
+                    <img src="product_structure.jpg" alt="金勺子APP产品功能结构图" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'">
+                    <div class="product-img-fallback" style="display:none;">
+                        <i>🗺️</i>
+                        产品功能结构图<br>加载失败
+                    </div>
+                </div>
+                <div class="product-img-desc">产品功能结构图（点击查看全图）</div>
+            </div>
+            <!-- 低保真设计图 -->
+            <div>
+                <div class="product-img-wrap" onclick="openImgPreview('product_lowfi.jpg', '低保真设计图')">
+                    <img src="product_lowfi.jpg" alt="金勺子APP低保真设计图" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'">
+                    <div class="product-img-fallback" style="display:none;">
+                        <i>✏️</i>
+                        低保真设计图<br>加载失败
+                    </div>
+                </div>
+                <div class="product-img-desc">低保真设计图（点击查看全图）</div>
+            </div>
+            <!-- 高保真设计图 -->
+            <div>
+                <div class="product-img-wrap" onclick="openImgPreview('product_hifi.jpg', '高保真设计图')">
+                    <img src="product_hifi.jpg" alt="金勺子APP高保真设计图" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'">
+                    <div class="product-img-fallback" style="display:none;">
+                        <i>🎨</i>
+                        高保真设计图<br>加载失败
+                    </div>
+                </div>
+                <div class="product-img-desc">高保真设计图（点击查看全图）</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 视频剪辑作品板块：完全保留原有内容，无任何修改 -->
+    <h2 class="portfolio-title">视频剪辑作品</h2>
+    <div class="video-grid">
+        <!-- 视频1 -->
+        <div class="video-item">
+            <div class="video-wrap">
+                <video controls poster="voyant_cover.jpg" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'">
+                    <source src="voyant_tools.mp4" type="video/mp4">
+                    你的浏览器不支持视频播放
+                </video>
+                <div class="video-fallback" style="display:none;">
+                    视频加载失败（404错误）<br>
+                    请查看简历附件中的视频文件
+                </div>
+            </div>
+            <div class="video-info">
+                <span class="tag tag-course">课程作业</span>
+                <div class="video-title">Voyant Tools使用方法介绍</div>
+                <div class="video-desc">学业课程作业，讲解工具核心功能、使用方法、步骤演示，素材来源于AI推荐的免费视频素材网站</div>
+            </div>
+        </div>
+
+        <!-- 视频2 -->
+        <div class="video-item">
+            <div class="video-wrap">
+                <video controls poster="national_cover.jpg" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'">
+                    <source src="national_day.mp4" type="video/mp4">
+                    你的浏览器不支持视频播放
+                </video>
+                <div class="video-fallback" style="display:none;">
+                    视频加载失败（404错误）<br>
+                    请查看简历附件中的视频文件
+                </div>
+            </div>
+            <div class="video-info">
+                <span class="tag tag-work1">学生工作·节日宣传</span>
+                <div class="video-title">外国语学院国庆节祝福视频</div>
+                <div class="video-desc">研究生会工作成果，学院节日宣传视频，一个画面整合多个视频素材，宣传范围覆盖全院500+师生</div>
+            </div>
+        </div>
+
+        <!-- 视频3 -->
+        <div class="video-item">
+            <div class="video-wrap">
+                <video controls poster="graduation_cover.jpg" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'">
+                    <source src="graduation.mp4" type="video/mp4">
+                    你的浏览器不支持视频播放
+                </video>
+                <div class="video-fallback" style="display:none;">
+                    视频加载失败（404错误）<br>
+                    请查看简历附件中的视频文件
+                </div>
+            </div>
+            <div class="video-info">
+                <span class="tag tag-work2">学生工作·毕业宣传</span>
+                <div class="video-title">毕业季祝福视频</div>
+                <div class="video-desc">毕业生欢送会配套视频，涉及多个片段穿插剪辑，营造学院师生的温情氛围</div>
+            </div>
+        </div>
+
+        <!-- 视频4 -->
+        <div class="video-item">
+            <div class="video-wrap">
+                <video controls poster="disney_cover.jpg" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'">
+                    <source src="disney_vlog.mp4" type="video/mp4">
+                    你的浏览器不支持视频播放
+                </video>
+                <div class="video-fallback" style="display:none;">
+                    视频加载失败（404错误）<br>
+                    请查看简历附件中的视频文件
+                </div>
+            </div>
+            <div class="video-info">
+                <span class="tag tag-daily">日常创作·生活记录</span>
+                <div class="video-title">迪士尼游玩vlog</div>
+                <div class="video-desc">个人生活剪辑，捕捉游玩美好瞬间，侧重节奏把控、丝滑转场、趣味画面拼接</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚：更新标题为个人作品集 -->
+    <footer>
+        <p>张琪琪 · 个人作品集（产品设计+视频剪辑） | 仅用于求职展示</p>
+    </footer>
+</div>
+
+<!-- 图片预览弹窗 -->
+<div class="img-preview-modal" id="imgPreviewModal" onclick="closeImgPreview()">
+    <span class="img-preview-close" onclick="closeImgPreview()">×</span>
+    <img src="" alt="" class="img-preview-content" id="previewImg">
+</div>
+
+<script>
+// 打开图片预览
+function openImgPreview(imgSrc, imgTitle) {
+    const modal = document.getElementById('imgPreviewModal');
+    const previewImg = document.getElementById('previewImg');
+    previewImg.src = imgSrc;
+    previewImg.alt = imgTitle;
+    modal.style.display = 'flex';
+    // 禁止页面滚动
+    document.body.style.overflow = 'hidden';
+}
+
+// 关闭图片预览
+function closeImgPreview() {
+    const modal = document.getElementById('imgPreviewModal');
+    modal.style.display = 'none';
+    // 恢复页面滚动
+    document.body.style.overflow = 'auto';
+}
+
+// 点击图片本身不关闭弹窗（仅点击空白/关闭按钮关闭）
+document.getElementById('previewImg').addEventListener('click', function(e) {
+    e.stopPropagation();
+});
+</script>
+</body>
+</html>
